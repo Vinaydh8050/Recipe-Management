@@ -1,0 +1,41 @@
+/* RecipeDetails.css */
+
+/* Styling for the container that holds the recipe details */
+.recipe-details-container {
+    position: relative; /* This ensures the close button is positioned relative to this container */
+    background: #fff; /* White background for the details container */
+    padding: 20px; /* Adds padding inside the container */
+    border-radius: 12px; /* Rounded corners for the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Light shadow around the container */
+    max-width: 830px; /* Maximum width of the container */
+    width: 100%; /* Container takes up full width available */
+    min-height: 300px; /* Minimum height to ensure enough space for content */
+    margin-left: 20px;
+    text-align: left;
+  }
+  
+  /* Close button styling */
+  .close-btn {
+    background: transparent; /* No background color */
+    border: none; /* Removes border */
+    font-size: 24px; /* Font size for the button */
+    color: #999; /* Initial color for the close button */
+    position: absolute; /* Absolutely position the button inside the container */
+    top: 10px; /* 10px from the top of the container */
+    right: 10px; /* 10px from the right edge of the container */
+    cursor: pointer; /* Changes cursor to a pointer when hovered */
+    transition: 0.3s; /* Smooth transition for color change */
+    z-index: 10; /* Ensures the button appears above other content */
+  }
+  
+  /* Hover effect for the close button */
+  .close-btn:hover {
+    color: #000; /* Changes color to black on hover */
+  }
+  
+  /* Styling for the close icon inside the button */
+  .close-icon {
+    font-size: 30px; /* Font size for the 'X' icon */
+    line-height: 30px; /* Ensures the icon is properly aligned */
+  }
+  

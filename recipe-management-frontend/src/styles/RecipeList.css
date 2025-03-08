@@ -1,0 +1,99 @@
+/* Recipe list container */
+.recipe-list-container {
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  min-width: 250px;
+  margin-left: 0; /* No margin on the left */
+  margin-right: auto; /* Optional: ensures it stays on the left */
+  min-height: 320px;
+}
+
+/* Recipe list heading */
+.recipe-list-heading {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  margin-top: 0px;
+  padding-top: 10px;
+}
+
+/* List of recipes */
+.recipe-list {
+  max-height: 300px; /* Set a max height and enable scrolling */
+  overflow-y: auto;
+}
+
+/* Styling for each item in the list */
+.recipe-item {
+  display: flex;
+  justify-content: space-between; /* Aligns title left and delete right */
+  align-items: center;
+  background: #f9f9f9;
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+/* Hover effect for items */
+.recipe-item:hover {
+  background: #e0e0e0;
+}
+
+/* Styling for recipe title */
+.recipe-title {
+  flex: 1;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: left; /* Ensures text stays left */
+}
+
+/* Trash icon */
+.delete-icon {
+  color: #dc3545;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/* Hover effect for trash icon */
+.delete-icon:hover {
+  color: #b02a37;
+}
+
+/* Styling for selected recipe */
+.selected {
+  background: #d1e7dd;
+  border: 2px solid #198754;
+}
+
+/* For drag and drop: adding transition for smooth dragging */
+.recipe-item:active {
+  background-color: #e0e0e0; /* Change the background while dragging */
+}
+
+.recipe-list .react-beautiful-dnd-dragging {
+  background: #f0f0f0; /* Light background while dragging */
+  opacity: 0.7; /* Dimmed opacity during drag */
+}
+
+.recipe-list .react-beautiful-dnd-dragging .recipe-item {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* Optional: add shadow while dragging */
+}
+/* Add this to your existing CSS */
+.recipe-item:active {
+  background-color: #e0e0e0; /* Change the background while dragging */
+}
+
+.recipe-item.dragging {
+  opacity: 0.7;
+  background-color: #f0f0f0; /* Light background while dragging */
+}
+
+.recipe-list .react-beautiful-dnd-dragging {
+  background: #f0f0f0;
+  opacity: 0.7;
+}

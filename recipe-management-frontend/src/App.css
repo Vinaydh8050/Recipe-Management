@@ -1,0 +1,38 @@
+/* General Styles */
+body {
+  font-family: 'Poppins', sans-serif; /* Use Poppins for the body text */
+  margin: 0;
+  padding: 0;
+  background: linear-gradient(135deg, #a7c7e7, #b9e2f3); /* Light blue gradient background */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+h1 {
+  font-family: 'Brush Script MT', cursive; /* Cursive font for headings */
+  font-size: 48px;  /* Larger font size for the heading */
+  font-weight: normal; /* Use normal weight as Brush Script MT is already cursive */
+  color: #333; /* Dark color for readability */
+  text-align: center;
+  margin-top: 20px;
+}
+
+.main-content {
+  margin-top: 80px;
+  width: 95%;
+  max-width: 800px;
+}
+
+.recipe-container-bg {
+  text-align: center;
+}
+
+.recipe-container-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
+}
