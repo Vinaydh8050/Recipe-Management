@@ -1,40 +1,54 @@
 import React, { useState } from "react";
+import AddRecipeForm from "./components/AddRecipeForm";
 import RecipeList from "./components/RecipeList";
 import RecipeDetails from "./components/RecipeDetails";
-import AddRecipeForm from "./components/AddRecipeForm";
 import "./App.css";
 
 const App = () => {
   const [selectedRecipeId, setSelectedRecipeId] = useState(null);
-  const [refreshRecipes, setRefreshRecipes] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [showDetails, setShowDetails] = useState(false);
 
-  const clearRecipeDetails = () => {
-    setSelectedRecipeId(null);
-    setShowDetails(false);
+  const handleRecipeAdded = () => {
+    setRefresh((prev) => !prev);
   };
 
-  const handleRecipeAdded = () => {
-    setRefreshRecipes((prev) => !prev);
+  const handleSelectRecipe = (recipeId) => {
+    setSelectedRecipeId(recipeId);
+    setShowDetails(true);
+  };
+
+  const handleCloseDetails = () => {
+    setShowDetails(false);
+    setSelectedRecipeId(null);
   };
 
   return (
-    <div className="recipe-container-bg">
-      <h1>Recipe Management</h1>
-      <AddRecipeForm onRecipeAdded={handleRecipeAdded} />
+    <div className="app-container">
+      <h1 className="app-title">Recipe Manager</h1>
+      <div className="content">
+        <div className="left-panel">
+          <AddRecipeForm onRecipeAdded={handleRecipeAdded} />
 
-      <div className="recipe-container-row">
-        <RecipeList
-          onSelectRecipe={setSelectedRecipeId}
-          selectedRecipeId={selectedRecipeId}
-          onClearRecipeDetails={clearRecipeDetails}
-          refresh={refreshRecipes}
-          showDetails={showDetails}
-          setShowDetails={setShowDetails}
-        />
-        {showDetails && selectedRecipeId && (
-          <RecipeDetails recipeId={selectedRecipeId} handleCloseDetails={() => setShowDetails(false)} />
-        )}
+          <div className="recipe-container">
+            {/* Recipe List */}
+            <div className="recipe-list-wrapper">
+              <RecipeList
+                onSelectRecipe={handleSelectRecipe}
+                selectedRecipeId={selectedRecipeId}
+                refresh={refresh}
+                setShowDetails={setShowDetails}
+              />
+            </div>
+
+            {/* Recipe Details - Render Only When a Recipe is Selected */}
+            {showDetails && (
+              <div className="show-details">
+                <RecipeDetails recipeId={selectedRecipeId} handleCloseDetails={handleCloseDetails} />
+              </div>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );

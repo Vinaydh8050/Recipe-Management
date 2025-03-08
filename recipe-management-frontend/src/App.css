@@ -1,38 +1,50 @@
-/* General Styles */
-body {
-  font-family: 'Poppins', sans-serif; /* Use Poppins for the body text */
-  margin: 0;
-  padding: 0;
-  background: linear-gradient(135deg, #a7c7e7, #b9e2f3); /* Light blue gradient background */
+/* App container */
+.app-container {
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to right, #cfe8fc, #a1d1f7); /* Light blue gradient */
   min-height: 100vh;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-h1 {
-  font-family: 'Brush Script MT', cursive; /* Cursive font for headings */
-  font-size: 48px;  /* Larger font size for the heading */
-  font-weight: normal; /* Use normal weight as Brush Script MT is already cursive */
-  color: #333; /* Dark color for readability */
+/* Title styling */
+.app-title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
   text-align: center;
-  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
-.main-content {
-  margin-top: 80px;
-  width: 95%;
-  max-width: 800px;
-}
-
-.recipe-container-bg {
-  text-align: center;
-}
-
-.recipe-container-row {
+/* Content layout */
+.content {
   display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-start;
-  width: 100%;
+  width: 90%;
+  max-width: 1200px;
+  gap: 20px;
+  justify-content: center;
 }
+
+/* Left panel (Form and List) */
+.left-panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Recipe container - Aligns Recipe List and Details Side by Side */
+.recipe-container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+/* Recipe list */
+.recipe-list-wrapper {
+  flex: 1;
+  max-width: 250px; /* Adjust width as needed */
+}
+

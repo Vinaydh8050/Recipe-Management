@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { fetchRecipes, deleteRecipe, updateRecipeOrder } from "../services/api";
+import { fetchRecipes, deleteRecipe } from "../services/api";
 import { FaTrash } from "react-icons/fa";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import "../styles/RecipeList.css";
 
-const RecipeList = ({ onSelectRecipe, selectedRecipeId, refresh, onClearRecipeDetails, showDetails, setShowDetails }) => {
+const RecipeList = ({ onSelectRecipe, selectedRecipeId, refresh, setShowDetails }) => {
   const [recipes, setRecipes] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("All");
@@ -44,32 +43,12 @@ const RecipeList = ({ onSelectRecipe, selectedRecipeId, refresh, onClearRecipeDe
 
   const handleDelete = async (recipeId) => {
     await deleteRecipe(recipeId);
-    setRecipes(recipes.filter(recipe => recipe._id !== recipeId));
+    setRecipes(recipes.filter((recipe) => recipe._id !== recipeId));
   };
 
   const handleRecipeClick = (recipeId) => {
     onSelectRecipe(recipeId);
     setShowDetails(true);
-  };
-
-  const handleOnDragEnd = async (result) => {
-    const { source, destination } = result;
-
-    if (!destination) return;
-    if (source.index === destination.index) return;
-
-    const reorderedRecipes = Array.from(filteredRecipes);
-    const [removed] = reorderedRecipes.splice(source.index, 1);
-    reorderedRecipes.splice(destination.index, 0, removed);
-
-    setFilteredRecipes(reorderedRecipes);
-
-    const orderedRecipes = reorderedRecipes.map((recipe, index) => ({
-      ...recipe,
-      order: index,
-    }));
-
-    await updateRecipeOrder({ orderedRecipes });
   };
 
   const handleSurpriseMe = () => {
@@ -98,35 +77,24 @@ const RecipeList = ({ onSelectRecipe, selectedRecipeId, refresh, onClearRecipeDe
         Surprise Me!
       </button>
 
-      <DragDropContext onDragEnd={handleOnDragEnd}>
-        <Droppable droppableId="recipe-list">
-          {(provided) => (
-            <div
-              className="recipe-list"
-              ref={provided.innerRef}
-              {...provided.droppableProps}
-            >
-              {filteredRecipes.map((recipe, index) => (
-                <Draggable key={recipe._id} draggableId={recipe._id} index={index}>
-                  {(provided) => (
-                    <div
-                      className={`recipe-item ${selectedRecipeId === recipe._id ? "selected" : ""}`}
-                      ref={provided.innerRef}
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      onClick={() => handleRecipeClick(recipe._id)}
-                    >
-                      <span className="recipe-title">{recipe.title}</span>
-                      <FaTrash className="delete-icon" onClick={(e) => { e.stopPropagation(); handleDelete(recipe._id); }} />
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
-            </div>
-          )}
-        </Droppable>
-      </DragDropContext>
+      <div className="recipe-list">
+        {filteredRecipes.map((recipe) => (
+          <div
+            key={recipe._id}
+            className={`recipe-item ${selectedRecipeId === recipe._id ? "selected" : ""}`}
+            onClick={() => handleRecipeClick(recipe._id)}
+          >
+            <span className="recipe-title">{recipe.title}</span>
+            <FaTrash
+              className="delete-icon"
+              onClick={(e) => {
+                e.stopPropagation();
+                handleDelete(recipe._id);
+              }}
+            />
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
