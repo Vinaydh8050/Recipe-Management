@@ -55,24 +55,29 @@ const RecipeList = ({ onSelectRecipe, selectedRecipeId, refresh, onClearRecipeDe
   const handleOnDragEnd = async (result) => {
     const { source, destination } = result;
 
-    if (!destination) return; // Dropped outside the list
+    if (!destination) return;
+    if (source.index === destination.index) return;
 
-    if (source.index === destination.index) return; // No change in position
-
-    // Reorder recipes and update the backend
     const reorderedRecipes = Array.from(filteredRecipes);
     const [removed] = reorderedRecipes.splice(source.index, 1);
     reorderedRecipes.splice(destination.index, 0, removed);
 
     setFilteredRecipes(reorderedRecipes);
 
-    // Update the order in the backend (API)
     const orderedRecipes = reorderedRecipes.map((recipe, index) => ({
       ...recipe,
       order: index,
     }));
 
     await updateRecipeOrder({ orderedRecipes });
+  };
+
+  const handleSurpriseMe = () => {
+    if (filteredRecipes.length === 0) return;
+    const randomIndex = Math.floor(Math.random() * filteredRecipes.length);
+    const randomRecipe = filteredRecipes[randomIndex];
+    onSelectRecipe(randomRecipe._id);
+    setShowDetails(true);
   };
 
   return (
@@ -89,22 +94,26 @@ const RecipeList = ({ onSelectRecipe, selectedRecipeId, refresh, onClearRecipeDe
         </select>
       </div>
 
+      <button className="surprise-button" onClick={handleSurpriseMe}>
+        Surprise Me!
+      </button>
+
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId="recipe-list">
           {(provided) => (
             <div
               className="recipe-list"
-              ref={provided.innerRef} // Properly assign the ref from react-beautiful-dnd
-              {...provided.droppableProps} // Necessary props for droppable
+              ref={provided.innerRef}
+              {...provided.droppableProps}
             >
               {filteredRecipes.map((recipe, index) => (
                 <Draggable key={recipe._id} draggableId={recipe._id} index={index}>
                   {(provided) => (
                     <div
                       className={`recipe-item ${selectedRecipeId === recipe._id ? "selected" : ""}`}
-                      ref={provided.innerRef} // Properly assign the ref from react-beautiful-dnd
-                      {...provided.draggableProps} // Necessary props for draggable
-                      {...provided.dragHandleProps} // Necessary props for dragging handle
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
                       onClick={() => handleRecipeClick(recipe._id)}
                     >
                       <span className="recipe-title">{recipe.title}</span>

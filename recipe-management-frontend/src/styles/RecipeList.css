@@ -97,3 +97,21 @@
   background: #f0f0f0;
   opacity: 0.7;
 }
+/* Add the following CSS for the Surprise Me button */
+.surprise-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: 0.3s ease;
+}
+
+.surprise-button:hover {
+  background-color: #218838;
+}
+
